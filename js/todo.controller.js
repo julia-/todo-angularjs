@@ -1,32 +1,55 @@
-function TodoController () {
-  this.newTodo = '';
-  this.list = [
-    {
-      title: 'First todo',
-      completed: true
-    },
-    {
-      title: 'Second todo',
-      completed: false
-    },
-    {
-      title: 'Third todo',
-      completed: false
+function TodoController (TodoService) {
+  const ctrl = this
+
+  ctrl.newTodo = '';
+  ctrl.list = []
+
+  const getTodos = () => {
+    TodoService
+      .retrieve()
+      .then(response => ctrl.list = response)
+  }
+
+  ctrl.addTodo = () => {
+    if (!ctrl.newTodo) {
+      return
     }
-  ]
-  this.addTodo = () => {
-    this.list.unshift({
-      title: this.newTodo,
-      completed: false
-    })
-    this.newTodo = ''
+    TodoService
+      .create({
+        title: ctrl.newTodo,
+        completed: false
+      })
+      .then(response => {
+        ctrl.list.unshift(response)
+        ctrl.newTodo = ''
+      })
   }
-  this.removeTodo = (item, index) => {
-    this.list.splice(index, 1)
+
+  ctrl.updateTodo = (item, index) => {
+    if (!item.title) {
+      ctrl.removeTodo(item, index)
+      return
+    }
+
+    TodoService
+      .update(item)
   }
-  this.getUncompletedTodos = () => {
-    return this.list.filter(item => !item.completed)
+
+  ctrl.removeTodo = (item, index) => {
+    TodoService
+      .remove(item)
+      .then(response => ctrl.list.splice(index, 1))
   }
+
+  ctrl.toggleState = (item) => {
+    TodoService
+      .update(item)
+      .then(response => {}, () => item.completed = !item.completed)
+  }
+  ctrl.getUncompletedTodos = () => {
+    return ctrl.list.filter(item => !item.completed)
+  }
+  getTodos()
 }
 
 angular
