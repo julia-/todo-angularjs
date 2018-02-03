@@ -1,4 +1,5 @@
 function TodoController () {
+  this.newTodo = '';
   this.list = [
     {
       title: 'First todo',
@@ -13,6 +14,13 @@ function TodoController () {
       completed: false
     }
   ]
+  this.addTodo = () => {
+    this.list.unshift({
+      title: this.newTodo,
+      completed: false
+    })
+    this.newTodo = ''
+  }
 }
 
 angular
