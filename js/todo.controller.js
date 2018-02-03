@@ -2,7 +2,7 @@ function TodoController () {
   this.list = [
     {
       title: 'First todo',
-      completed: false
+      completed: true
     },
     {
       title: 'Second todo',
