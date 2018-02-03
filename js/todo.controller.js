@@ -1,4 +1,4 @@
-const TodoController = () => {
+function TodoController () {
   this.list = [
     {
       title: 'First todo',

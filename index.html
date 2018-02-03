@@ -12,10 +12,15 @@
 
 <body>
   <div ng-controller="TodoController as todo">
-
+    <ul>
+      <li ng-repeat="item in todo.list">
+        <p>{{ item.title }}</p>
+      </li>
+    </ul>
   </div>
 
   <script src="js/app.js"></script>
+  <script src="js/todo.controller.js"></script>
 </body>
 
 </html>
