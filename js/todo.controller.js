@@ -21,6 +21,9 @@ function TodoController () {
     })
     this.newTodo = ''
   }
+  this.removeTodo = (item, index) => {
+    this.list.splice(index, 1)
+  }
 }
 
 angular
