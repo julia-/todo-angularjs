@@ -24,6 +24,9 @@ function TodoController () {
   this.removeTodo = (item, index) => {
     this.list.splice(index, 1)
   }
+  this.getUncompletedTodos = () => {
+    return this.list.filter(item => !item.completed)
+  }
 }
 
 angular
